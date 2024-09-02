@@ -17,9 +17,9 @@ const columns = [
     width: 250,
   },
   {
-    field: "stdClass",
-    headerName: "Class",
-    width: 60,
+    field: "education",
+    headerName: "Education",
+    width: 100,
   },
   {
     field: "gender",
@@ -38,7 +38,7 @@ function DataTable() {
   }, []);
 
   const getData = async () => {
-    const snapshot = await getDocs(collection(db, "students"));
+    const snapshot = await getDocs(collection(db, "teachers"));
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -59,7 +59,7 @@ function DataTable() {
   );
 }
 
-const StudentList = () => {
+const TeachersList = () => {
   const navigate = useNavigate();
   return (
     <Box margin="20px auto" sx={{ position: "relative" }}>
@@ -73,7 +73,7 @@ const StudentList = () => {
           mb: "30px",
         }}
       >
-        Students List
+        Teachers List
       </Typography>
       <Box
         sx={{
@@ -85,7 +85,7 @@ const StudentList = () => {
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => navigate("/dashboard/Student-Registration")}
+          onClick={() => navigate("/dashboard/Teacher-Registration")}
         >
           Add
         </Button>
@@ -98,4 +98,4 @@ const StudentList = () => {
   );
 };
 
-export default StudentList;
+export default TeachersList;

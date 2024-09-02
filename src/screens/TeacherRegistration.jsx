@@ -1,10 +1,13 @@
 import {
   Box,
   Button,
+  FormControl,
   FormControlLabel,
   InputLabel,
+  MenuItem,
   Radio,
   RadioGroup,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -12,21 +15,21 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-const StudentRegistration = () => {
+const TeacherRegistration = () => {
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [stdClass, setStdClass] = useState("");
+  const [education, setEducation] = useState("");
   const [gender, setGender] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, "students"), {
+      const docRef = await addDoc(collection(db, "teachers"), {
         firstName,
         lastName,
         email,
-        stdClass,
+        education,
         gender,
       });
       console.log("Document written with ID: ", docRef.id);
@@ -46,7 +49,7 @@ const StudentRegistration = () => {
           mb: "30px",
         }}
       >
-        Student Registration Form
+        Teacher Registration Form
       </Typography>
       <form onSubmit={handleSubmit}>
         <Box mb="25px">
@@ -80,14 +83,19 @@ const StudentRegistration = () => {
           />
         </Box>
         <Box mb="25px">
-          <InputLabel sx={{ mb: "10px" }}>Class</InputLabel>
-          <TextField
-            fullWidth
-            required
-            type="number"
-            value={stdClass}
-            onChange={(e) => setStdClass(e.target.value)}
-          />
+          <InputLabel sx={{ mb: "10px" }}>Education</InputLabel>
+          <FormControl fullWidth>
+            <Select
+              id="demo-simple-select"
+              value={education}
+              onChange={(e) => setEducation(e.target.value)}
+            >
+              <MenuItem value="Matric">Matric</MenuItem>
+              <MenuItem value="Intermediate">Intermediate</MenuItem>
+              <MenuItem value="Graduate">Graduate</MenuItem>
+              <MenuItem value="Post Graduate">Post Graduate</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         <Box mb="25px">
           <InputLabel sx={{ mb: "10px" }}>Gender</InputLabel>
@@ -118,4 +126,4 @@ const StudentRegistration = () => {
   );
 };
 
-export default StudentRegistration;
+export default TeacherRegistration;

@@ -8,6 +8,8 @@ import LogIn from "./screens/LogIn";
 import Dashboard from "./screens/Dashboard";
 import StudentRegistration from "./screens/StudentRegistration";
 import StudentList from "./screens/StudentList";
+import TeacherRegistration from "./screens/TeacherRegistration";
+import TeachersList from "./screens/TeachersList";
 
 const App = () => {
   return (
@@ -21,6 +23,11 @@ const App = () => {
             element={<StudentRegistration />}
           />
           <Route path="Students-List" element={<StudentList />} />
+          <Route
+            path="Teacher-Registration"
+            element={<TeacherRegistration />}
+          />
+          <Route path="Teachers-List" element={<TeachersList />} />
         </Route>
       </Routes>
     </BrowserRouter>

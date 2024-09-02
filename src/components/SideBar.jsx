@@ -6,7 +6,6 @@ import {
   AccordionSummary,
   List,
   ListItem,
-  ListItemText,
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -48,7 +47,9 @@ const SideBar = () => {
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
                 <MailOutlineIcon />
-                <Typography sx={{ fontSize: "1.3rem" }}>{category}</Typography>
+                <Typography sx={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+                  {category}
+                </Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails sx={{ margin: "0", padding: "0 0 0 45px" }}>
@@ -59,7 +60,7 @@ const SideBar = () => {
                     button
                     onClick={() => handleNavigation(subItem)}
                   >
-                    <ListItemText primary={subItem} />
+                    <Typography sx={{ fontSize: "24px" }}>{subItem}</Typography>
                   </ListItem>
                 ))}
               </List>
