@@ -38,7 +38,10 @@ const LogIn = () => {
         localStorage.setItem("userId", userCredential.user.uid);
         const getData = await getDoc(doc(db, "users", userCredential.user.uid));
         localStorage.setItem("userData", JSON.stringify(getData.data()));
-        navigate("/dashboard");
+        const users = getData.data();
+        users.registrationFor === "Teacher"
+          ? navigate("/dashboard/Teachers-List")
+          : navigate("/dashboard/Students-List");
         setEmail("");
         setPassword("");
       })
