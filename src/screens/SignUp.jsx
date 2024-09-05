@@ -6,6 +6,9 @@ import {
   Paper,
   TextField,
   Typography,
+  FormControl,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -14,8 +17,9 @@ import image from "../assets/signup.jpg";
 import logo from "../assets/j3.png";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const [firstName, setFirstname] = useState("");
@@ -24,18 +28,31 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [registrationFor, setRegistrationFor] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(firstName, lastName, email);
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential.user);
+      .then(async (userCredential) => {
+        alert("signed up successfully");
+        const uid = userCredential.user.uid;
+        try {
+          await setDoc(doc(db, "users", uid), {
+            firstName,
+            lastName,
+            email,
+            registrationFor,
+          });
+        } catch (error) {
+          console.error("Error setting document: ", error);
+        }
         navigate("/login");
         setFirstname("");
         setLastname("");
         setEmail("");
         setPassword("");
+        setRegistrationFor("");
       })
       .catch((error) => {
         console.log(error.message);
@@ -122,6 +139,19 @@ const SignUp = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+            </Box>
+            <Box mb="25px">
+              <InputLabel sx={{ mb: "10px" }}>Registration For</InputLabel>
+              <FormControl fullWidth>
+                <Select
+                  id="demo-simple-select"
+                  value={registrationFor}
+                  onChange={(e) => setRegistrationFor(e.target.value)}
+                >
+                  <MenuItem value="Student">Student</MenuItem>
+                  <MenuItem value="Teacher">Teacher</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
             <Box mb="25px">
               <InputLabel sx={{ mb: "10px" }}>Password</InputLabel>

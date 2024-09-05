@@ -34,8 +34,8 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
+  const toggleDrawer = () => () => {
+    setOpen(!open);
   };
 
   const data = [
@@ -52,6 +52,12 @@ function ResponsiveAppBar() {
 
   const navigate = useNavigate();
 
+  const handleNavigation = (item) => {
+    const path = `/dashboard/${item.replace(/ /g, "-")}`;
+    // toggleDrawer();
+    navigate(path);
+  };
+
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation">
       <Box
@@ -61,7 +67,7 @@ function ResponsiveAppBar() {
           padding: "15px",
         }}
       >
-        <CloseIcon onClick={toggleDrawer(false)} />
+        <CloseIcon onClick={toggleDrawer()} />
       </Box>
       <Box>
         {data.map((e, i) => {
@@ -87,7 +93,11 @@ function ResponsiveAppBar() {
               <AccordionDetails sx={{ margin: "0", padding: "0 0 0 45px" }}>
                 <List sx={{ margin: "0", padding: "0" }}>
                   {items.map((subItem, subIndex) => (
-                    <ListItem key={subIndex} button>
+                    <ListItem
+                      key={subIndex}
+                      button
+                      onClick={() => handleNavigation(subItem)}
+                    >
                       <ListItemText primary={subItem} />
                     </ListItem>
                   ))}
@@ -111,6 +121,7 @@ function ResponsiveAppBar() {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
+        localStorage.clear();
         navigate("/login");
       })
       .catch((error) => {
@@ -153,7 +164,7 @@ function ResponsiveAppBar() {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={toggleDrawer(true)}
+                onClick={toggleDrawer()}
                 color="inherit"
               >
                 <MenuIcon />

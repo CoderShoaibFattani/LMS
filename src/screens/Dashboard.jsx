@@ -15,7 +15,7 @@ const Dashboard = () => {
             display: {
               md: "inline-block",
               sm: "none",
-              sx: "none",
+              xs: "none",
               lg: "inline-block",
               xl: "inline-block",
             },

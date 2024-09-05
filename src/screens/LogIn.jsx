@@ -14,13 +14,14 @@ import GoogleIcon from "@mui/icons-material/Google";
 import image from "../assets/signup.jpg";
 import logo from "../assets/j3.png";
 import { useState } from "react";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -32,8 +33,11 @@ const LogIn = () => {
     e.preventDefault();
     console.log(email, password);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         console.log(userCredential.user);
+        localStorage.setItem("userId", userCredential.user.uid);
+        const getData = await getDoc(doc(db, "users", userCredential.user.uid));
+        localStorage.setItem("userData", JSON.stringify(getData.data()));
         navigate("/dashboard");
         setEmail("");
         setPassword("");
@@ -50,9 +54,15 @@ const LogIn = () => {
   const handleGoogleSignin = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         console.log(result.user);
-        navigate("/dashboard");
+        localStorage.setItem("userId", result.user.uid);
+        const getData = await getDoc(doc(db, "users", result.user.uid));
+        localStorage.setItem("userData", JSON.stringify(getData.data()));
+        const users = getData.data();
+        users.registrationFor === "Teacher"
+          ? navigate("/dashboard/Teachers-List")
+          : navigate("/dashboard/Students-List");
       })
       .catch((error) => {
         console.log(error.message);
