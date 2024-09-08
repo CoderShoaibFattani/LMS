@@ -12,28 +12,28 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-const StudentRegistration = () => {
+const ClassForm = () => {
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [stdClass, setStdClass] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, "students"), {
+      const docRef = await addDoc(collection(db, "class"), {
         firstName,
         lastName,
         email,
-        stdClass,
+        phoneNumber,
         gender,
       });
       console.log("Document written with ID: ", docRef.id);
       setFirstname("");
       setLastname("");
       setEmail("");
-      setStdClass("");
+      setPhoneNumber("");
       setGender("");
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -51,7 +51,7 @@ const StudentRegistration = () => {
           mb: "30px",
         }}
       >
-        Student Registration Form
+        Admission Form
       </Typography>
       <form onSubmit={handleSubmit}>
         <Box mb="25px">
@@ -85,13 +85,13 @@ const StudentRegistration = () => {
           />
         </Box>
         <Box mb="25px">
-          <InputLabel sx={{ mb: "10px" }}>Class</InputLabel>
+          <InputLabel sx={{ mb: "10px" }}>Phone Number</InputLabel>
           <TextField
             fullWidth
             required
             type="number"
-            value={stdClass}
-            onChange={(e) => setStdClass(e.target.value)}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </Box>
         <Box mb="25px">
@@ -123,4 +123,4 @@ const StudentRegistration = () => {
   );
 };
 
-export default StudentRegistration;
+export default ClassForm;

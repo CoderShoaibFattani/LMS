@@ -33,6 +33,11 @@ const TeacherRegistration = () => {
         gender,
       });
       console.log("Document written with ID: ", docRef.id);
+      setFirstname("");
+      setLastname("");
+      setEmail("");
+      setEducation("");
+      setGender("");
     } catch (e) {
       console.error("Error adding document: ", e);
     }

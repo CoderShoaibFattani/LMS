@@ -12,6 +12,12 @@ import TeacherRegistration from "./screens/TeacherRegistration";
 import TeachersList from "./screens/TeachersList";
 import HomeRoute from "./Routes/HomeRoute";
 import User from "./Routes/User";
+import SubjectAdd from "./screens/SubjectAdd";
+import SubjectsList from "./screens/SubjectsList";
+import ClassForm from "./screens/ClassForm";
+import ClassList from "./screens/ClassList";
+import FeeVoucher from "./screens/FeeVoucher";
+import FeeSubmision from "./screens/FeeSubmision";
 
 const App = () => {
   return (
@@ -33,6 +39,12 @@ const App = () => {
               element={<TeacherRegistration />}
             />
             <Route path="Teachers-List" element={<TeachersList />} />
+            <Route path="Subjects-Form" element={<SubjectAdd />} />
+            <Route path="Subjects-List" element={<SubjectsList />} />
+            <Route path="Class-Form" element={<ClassForm />} />
+            <Route path="Class-List" element={<ClassList />} />
+            <Route path="Fee-Voucher" element={<FeeVoucher />} />
+            <Route path="Fee-Submission" element={<FeeSubmision />} />
           </Route>
         </Route>
       </Routes>
