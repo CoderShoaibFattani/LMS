@@ -44,6 +44,7 @@ const LogIn = () => {
           : navigate("/dashboard/Students-List");
         setEmail("");
         setPassword("");
+        localStorage.removeItem("userData");
       })
       .catch((error) => {
         console.log(error.message);

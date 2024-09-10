@@ -20,7 +20,7 @@ const SideBar = () => {
     { Syllabus: ["Syllabus Form", "Syllabus List"] },
     { School: ["Student Registration", "Teacher Registration"] },
     { Class: ["Class Form", "Class List"] },
-    { Fees: ["Fee Voucher", "Fee Submission"] },
+    { Fees: ["Fee Structure", "Fee Voucher", "Fee Submission"] },
     { Admission: ["Admission Form"] },
     { Exam: ["Exam Schedule", "Exam result"] },
   ];

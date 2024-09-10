@@ -16,8 +16,9 @@ import SubjectAdd from "./screens/SubjectAdd";
 import SubjectsList from "./screens/SubjectsList";
 import ClassForm from "./screens/ClassForm";
 import ClassList from "./screens/ClassList";
-import FeeVoucher from "./screens/FeeVoucher";
 import FeeSubmision from "./screens/FeeSubmision";
+import FeeStructure from "./screens/FeeStructure";
+import FeeVoucher from "./screens/FeeVoucher";
 
 const App = () => {
   return (
@@ -43,8 +44,10 @@ const App = () => {
             <Route path="Subjects-List" element={<SubjectsList />} />
             <Route path="Class-Form" element={<ClassForm />} />
             <Route path="Class-List" element={<ClassList />} />
-            <Route path="Fee-Voucher" element={<FeeVoucher />} />
+            <Route path="Fee-Structure" element={<FeeStructure />} />
             <Route path="Fee-Submission" element={<FeeSubmision />} />
+            <Route path="Fee-Voucher" element={<FeeVoucher />} />
+            <Route path="Admission-Form" element={<StudentRegistration />} />
           </Route>
         </Route>
       </Routes>
